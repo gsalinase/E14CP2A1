@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>
+
+<%= form_with model: [ @company, @employee] do |form| %>
+  <%= form.label 'Nombre' %>
+  <%= form.text_field :first_name %>
+  <%= form.label 'Apellido' %>
+  <%= form.text_field :last_name %>
+  <%= form.label 'Correo Electrónico' %>
+  <%= form.email_field :email %>
+  <%= form.label 'Área' %>
+  <%= form.select :area_id, @areas.collect{ |areas| [areas.name, areas.id] }, prompt: "Escoge una opción" %>
+
+  <%= form.submit 'Enviar' %>
+<% end %>
+
+<% @company.employees.each do |employee| %>
+  <%= employee.first_name %>
+  <%= employee.last_name %>
+  <%= employee.email %>
+  <%= link_to 'eliminar', company_employee_path(@company, employee), method: :delete %>
+<% end %>
